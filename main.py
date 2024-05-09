@@ -9,8 +9,8 @@ from PIL import Image
 work_dir = os.path.expanduser("~")
 data_dir = os.path.join(work_dir, "data", "dataset-cimat")
 tiff_dir = os.path.join(data_dir, "tiff")
-norm_dir = os.path.join(data_dir, "norm")
-var_dir = os.path.join(data_dir, "var_jpg")
+norm_dir = os.path.join(data_dir, "tiff_norm")
+var_dir = os.path.join(data_dir, "var_norm_jpg")
 wind_dir = os.path.join(data_dir, "windfield_tiff")
 mask_dir = os.path.join(data_dir, "binary_mask_gimp_png")
 
