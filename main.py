@@ -14,9 +14,6 @@ var_dir = os.path.join(data_dir, "var_jpg")
 wind_dir = os.path.join(data_dir, "windfield_tiff")
 mask_dir = os.path.join(data_dir, "binary_mask_gimp_png")
 
-for fname in os.listdir(tiff_dir):
-    print(fname)
-
 
 def load_files(fname):
     img_tiff = rasterio.open(os.path.join(tiff_dir, fname)).read(1)
@@ -35,7 +32,7 @@ def load_files(fname):
     return img_tiff, img_norm, img_var, img_wind, img_mask, img_thrs
 
 
-def plot_image_and_mask(img_tiff, img_mask, img_thrs):
+def plot_image_and_mask(fname, img_tiff, img_mask, img_thrs):
     fig, axes = plt.subplots(nrows=1, ncols=3, figsize=(18, 10))
     titles = ["tiff", "mask", "segmentation"]
     # Display of original image, mask and segmentation
@@ -46,10 +43,11 @@ def plot_image_and_mask(img_tiff, img_mask, img_thrs):
         fig.colorbar(im, ax=axes[i], fraction=0.070, pad=0.04)
     plt.tight_layout()
     fig.suptitle(fname.split(".")[0], fontsize=16)
-    plt.show()
+    #plt.show()
+    plt.savefig(f"{fname.split(".")[0]}_image_maks.png")
 
 
-def plot_network_channels(img_norm, img_var, img_wind):
+def plot_network_channels(fname, img_norm, img_var, img_wind):
     fig, axes = plt.subplots(nrows=1, ncols=3, figsize=(18, 10))
     titles = ["norm", "var", "wind"]
     for i, image in enumerate([img_norm, img_var, img_wind]):
@@ -59,10 +57,11 @@ def plot_network_channels(img_norm, img_var, img_wind):
         fig.colorbar(im, ax=axes[i], fraction=0.070, pad=0.04)
     plt.tight_layout()
     fig.suptitle(fname.split(".")[0], fontsize=16)
-    plt.show()
+    #plt.show()
+    plt.savefig(f"{fname.split(".")[0]}_network_channels.png")
 
 
-def plot_histograms(img_tiff, img_norm, img_thrs):
+def plot_histograms(fname, img_tiff, img_norm, img_thrs):
     fig, axes = plt.subplots(nrows=1, ncols=3, figsize=(18, 10))
     titles = ["tiff", "norm", "segmentation"]
     # Remove invalid values for histogram
@@ -72,10 +71,11 @@ def plot_histograms(img_tiff, img_norm, img_thrs):
         axes[i].title.set_text(titles[i])
     plt.tight_layout()
     fig.suptitle(fname.split(".")[0], fontsize=16)
-    plt.show()
+    #plt.show()
+    plt.savefig(f"{fname.split(".")[0]}_histograms.png")
 
 
-def plot_thr_histograms(img_tiff, img_thrs):
+def plot_thr_histograms(fname, img_tiff, img_thrs):
     fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(18, 10))
     titles = ["tiff", "segmentation"]
 
@@ -87,12 +87,19 @@ def plot_thr_histograms(img_tiff, img_thrs):
 
     plt.tight_layout()
     fig.suptitle(fname.split(".")[0], fontsize=16)
-    plt.show()
+    #plt.show()
+    plt.savefig(f"{fname.split(".")[0]}_thr_histograms.png")
 
 
 def plot_image(fname):
     img_tiff, img_norm, img_var, img_wind, img_mask, img_thrs = load_files(fname)
-    plot_image_and_mask(img_tiff, img_mask, img_thrs)
-    plot_network_channels(img_norm, img_var, img_wind)
-    plot_histograms(img_tiff, img_norm, img_thrs)
-    plot_thr_histograms(img_tiff, img_thrs)
+    plot_image_and_mask(fname, img_tiff, img_mask, img_thrs)
+    plot_network_channels(fname, img_norm, img_var, img_wind)
+    plot_histograms(fname, img_tiff, img_norm, img_thrs)
+    plot_thr_histograms(fname, img_tiff, img_thrs)
+
+
+for fname in os.listdir(tiff_dir):
+    print(fname)
+    plot_image(fname)
+
