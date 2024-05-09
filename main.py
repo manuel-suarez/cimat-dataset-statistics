@@ -14,6 +14,10 @@ var_dir = os.path.join(data_dir, "var_norm_jpg")
 wind_dir = os.path.join(data_dir, "windfield_tiff")
 mask_dir = os.path.join(data_dir, "binary_mask_gimp_png")
 
+slurm_array_job_id = int(os.getenv('SLURM_ARRAY_JOB_ID'))
+slurm_array_task_id = int(os.getenv('SLURM_ARRAY_TASK_ID'))
+print(f"SLURM_ARRAY_JOB_ID: {slurm_array_job_id}")
+print(f"SLURM_ARRAY_TASK_ID: {slurm_array_task_id}")
 
 def load_files(fname):
     img_tiff = rasterio.open(os.path.join(tiff_dir, fname)).read(1)
@@ -98,7 +102,7 @@ def plot_image(fname):
     plot_histograms(fname, img_tiff, img_norm, img_thrs)
     plot_thr_histograms(fname, img_tiff, img_thrs)
 
-
-for fname in os.listdir(tiff_dir):
-    print(fname)
-    plot_image(fname)
+# Process file according to array task ID
+fname = os.listdir(tiff_dir)[int(os.getenv('SLURM_ARRAY_TASK_ID'))]
+print(fname)
+plot_image(fname)
