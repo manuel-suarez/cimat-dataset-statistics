@@ -6,7 +6,7 @@ from rasterio.plot import show
 from matplotlib import pyplot as plt
 from PIL import Image
 
-work_dir = os.path.expanduser("~")
+work_dir = os.path.expanduser(".")
 data_dir = os.path.join(work_dir, "data", "dataset-cimat")
 tiff_dir = os.path.join(data_dir, "tiff")
 norm_dir = os.path.join(data_dir, "norm")
@@ -43,8 +43,8 @@ def plot_image_and_mask(fname, img_tiff, img_mask, img_thrs):
         fig.colorbar(im, ax=axes[i], fraction=0.070, pad=0.04)
     plt.tight_layout()
     fig.suptitle(fname.split(".")[0], fontsize=16)
-    #plt.show()
-    plt.savefig(f"{fname.split(".")[0]}_image_maks.png")
+    # plt.show()
+    plt.savefig(f"{fname.split('.')[0]}_image_maks.png")
 
 
 def plot_network_channels(fname, img_norm, img_var, img_wind):
@@ -57,8 +57,8 @@ def plot_network_channels(fname, img_norm, img_var, img_wind):
         fig.colorbar(im, ax=axes[i], fraction=0.070, pad=0.04)
     plt.tight_layout()
     fig.suptitle(fname.split(".")[0], fontsize=16)
-    #plt.show()
-    plt.savefig(f"{fname.split(".")[0]}_network_channels.png")
+    # plt.show()
+    plt.savefig(f"{fname.split('.')[0]}_network_channels.png")
 
 
 def plot_histograms(fname, img_tiff, img_norm, img_thrs):
@@ -71,8 +71,8 @@ def plot_histograms(fname, img_tiff, img_norm, img_thrs):
         axes[i].title.set_text(titles[i])
     plt.tight_layout()
     fig.suptitle(fname.split(".")[0], fontsize=16)
-    #plt.show()
-    plt.savefig(f"{fname.split(".")[0]}_histograms.png")
+    # plt.show()
+    plt.savefig(f"{fname.split('.')[0]}_histograms.png")
 
 
 def plot_thr_histograms(fname, img_tiff, img_thrs):
@@ -87,8 +87,8 @@ def plot_thr_histograms(fname, img_tiff, img_thrs):
 
     plt.tight_layout()
     fig.suptitle(fname.split(".")[0], fontsize=16)
-    #plt.show()
-    plt.savefig(f"{fname.split(".")[0]}_thr_histograms.png")
+    # plt.show()
+    plt.savefig(f"{fname.split('.')[0]}_thr_histograms.png")
 
 
 def plot_image(fname):
@@ -102,4 +102,3 @@ def plot_image(fname):
 for fname in os.listdir(tiff_dir):
     print(fname)
     plot_image(fname)
-
