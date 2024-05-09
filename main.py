@@ -13,3 +13,6 @@ norm_dir = os.path.join(data_dir, "norm")
 var_dir = os.path.join(data_dir, "var_jpg")
 wind_dir = os.path.join(data_dir, "windfield_tiff")
 mask_dir = os.path.join(data_dir, "binary_mask_gimp_png")
+
+for fname in os.listdir(tiff_dir):
+    print(fname)
