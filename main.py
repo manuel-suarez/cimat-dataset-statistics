@@ -88,3 +88,11 @@ def plot_thr_histograms(img_tiff, img_thrs):
     plt.tight_layout()
     fig.suptitle(fname.split(".")[0], fontsize=16)
     plt.show()
+
+
+def plot_image(fname):
+    img_tiff, img_norm, img_var, img_wind, img_mask, img_thrs = load_files(fname)
+    plot_image_and_mask(img_tiff, img_mask, img_thrs)
+    plot_network_channels(img_norm, img_var, img_wind)
+    plot_histograms(img_tiff, img_norm, img_thrs)
+    plot_thr_histograms(img_tiff, img_thrs)
